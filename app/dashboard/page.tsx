@@ -18,15 +18,12 @@ export default async function DashboardPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 bg-radial-accent px-4">
-      {/* Grid overlay */}
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-15" />
 
-      {/* Glow */}
       <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-cyan-400/15 blur-3xl float-slow" />
       <div className="pointer-events-none absolute -bottom-40 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-indigo-400/12 blur-3xl float-slow" />
 
       <section className="relative z-10 mx-auto w-full max-w-5xl py-10 space-y-6">
-        {/* Header */}
         <div className="card-glass p-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between fade-in">
           <div className="space-y-1">
             <h1 className="text-2xl font-semibold tracking-tight text-white">
@@ -49,7 +46,6 @@ export default async function DashboardPage() {
           </form>
         </div>
 
-        {/* Announcements */}
         <div className="card-glass p-6 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-white">
@@ -78,7 +74,6 @@ export default async function DashboardPage() {
                     {a.content}
                   </p>
 
-                  {/* optional meta */}
                   {a.created_at && (
                     <p className="mt-3 text-xs text-white/45">
                       {new Date(a.created_at).toLocaleString("id-ID")}

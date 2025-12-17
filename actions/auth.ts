@@ -31,7 +31,6 @@ export async function register(formData: FormData) {
     redirect("/register?error=" + encodeURIComponent(error.message));
   }
 
-  // ✅ SUCCESS
   redirect("/login?success=" + encodeURIComponent("Registrasi berhasil. Silakan Verifikasi Email lalu login."));
 }
 

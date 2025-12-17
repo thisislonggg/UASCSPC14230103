@@ -23,7 +23,6 @@ export default async function LoginPage({ searchParams }: { searchParams: SP }) 
           action={login as any}
           className="w-full max-w-md card-glass p-8 space-y-6 fade-in"
         >
-          {/* TOP SWITCHER */}
           <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-1">
             <Link
               href="/login"
@@ -39,7 +38,6 @@ export default async function LoginPage({ searchParams }: { searchParams: SP }) 
             </Link>
           </div>
 
-          {/* Header */}
           <div className="space-y-2 text-center">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
               <span className="text-xl">🔐</span>
@@ -48,7 +46,6 @@ export default async function LoginPage({ searchParams }: { searchParams: SP }) 
             <p className="text-sm text-white/70">Masuk ke Employee Portal</p>
           </div>
 
-          {/* Messages */}
           {errorMsg && (
             <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
               ❌ {errorMsg}
@@ -61,7 +58,6 @@ export default async function LoginPage({ searchParams }: { searchParams: SP }) 
             </div>
           )}
 
-          {/* Inputs */}
           <div className="space-y-4">
             <input
               name="email"

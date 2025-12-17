@@ -2,12 +2,10 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
-  // ✅ Jangan sampai middleware crash kalau ENV belum ada
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Lewatkan saja (jangan 500)
     return NextResponse.next()
   }
 
@@ -26,7 +24,6 @@ export async function updateSession(request: NextRequest) {
     },
   })
 
-  // ✅ Hindari crash: bungkus getUser dengan try/catch
   try {
     const {
       data: { user },
@@ -44,7 +41,6 @@ export async function updateSession(request: NextRequest) {
 
     return response
   } catch {
-    // Kalau Supabase/Edge error, jangan jatuh 500
     return NextResponse.next()
   }
 }

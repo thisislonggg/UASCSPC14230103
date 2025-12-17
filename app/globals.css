@@ -1,9 +1,7 @@
 @import "tailwindcss";
 @reference "tailwindcss";
 
-/* =========================
-   Base Reset & Defaults
-   ========================= */
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -14,9 +12,7 @@
   }
 }
 
-/* =========================
-   Custom Animations
-   ========================= */
+
 @layer utilities {
   .fade-in {
     animation: fadeIn 0.8s ease-out forwards;
@@ -76,9 +72,6 @@
   }
 }
 
-/* =========================
-   Reusable Components
-   ========================= */
 @layer components {
   .card-glass {
     @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_70px_-25px_rgba(0,0,0,0.7)];
