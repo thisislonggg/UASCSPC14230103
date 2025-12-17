@@ -1,135 +1,120 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@reference "tailwindcss";
 
 /* =========================
-   THEME VARIABLES
+   Base Reset & Defaults
    ========================= */
-:root {
-  --bg: 245 247 250;
-  --card: 255 255 255;
-  --primary: 37 99 235;
-  --secondary: 22 163 74;
-  --danger: 220 38 38;
-  --text: 17 24 39;
-  --muted: 107 114 128;
-  --border: 229 231 235;
-  --radius: 10px;
-}
-
-/* =========================
-   BASE
-   ========================= */
-html,
-body {
-  height: 100%;
-}
-
-body {
-  background-color: rgb(var(--bg));
-  color: rgb(var(--text));
-  font-family: ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, 'Noto Sans',
-    sans-serif;
-  line-height: 1.6;
-}
-
-/* =========================
-   FORM
-   ========================= */
-input {
-  background-color: white;
-  border: 1px solid rgb(var(--border));
-  border-radius: var(--radius);
-  padding: 0.65rem 0.75rem;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-input::placeholder {
-  color: rgb(var(--muted));
-}
-
-input:focus {
-  outline: none;
-  border-color: rgb(var(--primary));
-  box-shadow: 0 0 0 3px rgb(var(--primary) / 0.15);
-}
-
-button {
-  border-radius: var(--radius);
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  filter: brightness(0.95);
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-/* =========================
-   CARD
-   ========================= */
-.card {
-  background-color: rgb(var(--card));
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.05),
-    0 2px 4px -2px rgb(0 0 0 / 0.05);
-}
-
-/* =========================
-   TEXT
-   ========================= */
-h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-p {
-  color: rgb(var(--text));
-}
-
-.text-muted {
-  color: rgb(var(--muted));
-}
-
-/* =========================
-   LINKS
-   ========================= */
-a {
-  color: rgb(var(--primary));
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* =========================
-   ANIMATION
-   ========================= */
-.fade-in {
-  animation: fadeIn 0.35s ease-out both;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
-  to {
+
+  body {
+    @apply bg-slate-950 text-white antialiased;
+  }
+}
+
+/* =========================
+   Custom Animations
+   ========================= */
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .float-slow {
+    animation: floatSlow 12s ease-in-out infinite;
+  }
+
+  @keyframes floatSlow {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-18px);
+    }
+  }
+
+  .pulse-soft {
+    animation: pulseSoft 4s ease-in-out infinite;
+  }
+
+  @keyframes pulseSoft {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .bg-radial-accent {
+    background-image:
+      radial-gradient(1200px 600px at 20% 10%, rgba(56,189,248,0.2), transparent 55%),
+      radial-gradient(900px 500px at 90% 20%, rgba(99,102,241,0.18), transparent 55%),
+      radial-gradient(900px 500px at 50% 100%, rgba(34,197,94,0.14), transparent 55%);
+  }
+}
+
+/* =========================
+   Reusable Components
+   ========================= */
+@layer components {
+  .card-glass {
+    @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_20px_70px_-25px_rgba(0,0,0,0.7)];
+  }
+
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-semibold transition;
+  }
+
+  .btn-primary {
+    @apply bg-emerald-500 text-emerald-950 ring-1 ring-emerald-400/30
+           hover:-translate-y-0.5 hover:brightness-110
+           active:translate-y-0 active:scale-[0.99];
+  }
+
+  .btn-secondary {
+    @apply bg-indigo-500 text-indigo-950 ring-1 ring-indigo-400/30
+           hover:-translate-y-0.5 hover:brightness-110
+           active:translate-y-0 active:scale-[0.99];
+  }
+
+  .btn-shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      120px 60px at 50% 0%,
+      rgba(255, 255, 255, 0.55),
+      transparent 70%
+    );
+  }
+
+  .btn-shine:hover::before {
     opacity: 1;
-    transform: translateY(0);
   }
 }

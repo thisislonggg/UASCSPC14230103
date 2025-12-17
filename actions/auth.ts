@@ -3,39 +3,53 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 export async function register(formData: FormData) {
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
 
   if (!email || !password) {
-    return { error: 'Email dan password wajib diisi' }
+    redirect("/register?error=" + encodeURIComponent("Email dan password wajib diisi."));
   }
 
-  const supabase = await createClient()
-  const { error } = await supabase.auth.signUp({ email, password })
-
-  if (error) {
-    return { error: error.message }
+  if (!isValidEmail(email)) {
+    redirect("/register?error=" + encodeURIComponent("Format email tidak valid. Contoh: nama@email.com"));
   }
 
-  redirect('/login')
-}
-export async function login(formData: FormData) {
-  const email = formData.get('email') as string
-  const password = formData.get('password') as string
+  const supabase = await createClient();
 
-  const supabase = await createClient()
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
-  })
+  });
 
   if (error) {
-    return { error: error.message }
+    redirect("/register?error=" + encodeURIComponent(error.message));
   }
 
-  redirect('/dashboard')
+  // ✅ SUCCESS
+  redirect("/login?success=" + encodeURIComponent("Registrasi berhasil. Silakan login."));
 }
+
+export async function login(formData: FormData) {
+  const email = String(formData.get("email") ?? "");
+  const password = String(formData.get("password") ?? "");
+
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    redirect(`/login?error=${encodeURIComponent(error.message)}`);
+  }
+
+  redirect("/dashboard");
+}
+
 export async function logout() {
   const supabase = await createClient()
   await supabase.auth.signOut()
