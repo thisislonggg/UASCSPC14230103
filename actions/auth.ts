@@ -32,7 +32,7 @@ export async function register(formData: FormData) {
   }
 
   // ✅ SUCCESS
-  redirect("/login?success=" + encodeURIComponent("Registrasi berhasil. Silakan login."));
+  redirect("/login?success=" + encodeURIComponent("Registrasi berhasil. Silakan Verifikasi Email lalu login."));
 }
 
 export async function login(formData: FormData) {
